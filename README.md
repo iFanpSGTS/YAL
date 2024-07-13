@@ -16,7 +16,9 @@
   - [X] Basic Operator except xor
 - ## Working on..
   - [ ] Function (fn {})
-  - [ ] Global Var
+  - [ ] Comment line
+  - [ ] Function parameter/Argumen
+  - [ ] Array
 
 # Contributing
   ```bash
