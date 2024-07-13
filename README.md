@@ -7,14 +7,14 @@
 
 # Updates
 
-## Commited
+- ## Commited
   - [X] ForLoop Statement
   - [X] WhileLoop Statement
   - [X] Print/Println
   - [X] If-Else Statement
   - [X] Assigment Statement
   - [X] Basic Operator except xor
-## Working on..
+- ## Working on..
   - [ ] Function (fn {})
   - [ ] Global Var
 
