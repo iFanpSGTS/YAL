@@ -1,0 +1,48 @@
+// Tokens
+KEYWORD: 'if' | 'while' | 'for' | 'print' | 'println'
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*
+INTEGER: [0-9]+
+STRING: '"' .*? '"'
+OPERATOR: '+' | '-' | '*' | '/' | '>' | '<' | '==' | '!=' | '>=' | '<=' | '='
+LPAREN: '('
+RPAREN: ')'
+LBRACE: '{'
+RBRACE: '}'
+SEMICOLON: ';'
+COMMA: ','
+WHITESPACE: [ \t\n\r]+ -> skip
+
+// Grammar Rules
+program: statement* EOF;
+
+statement: ifStatement
+         | whileStatement
+         | forStatement
+         | printStatement
+         | assignmentStatement
+         ;
+
+ifStatement: 'if' LPAREN expression RPAREN LBRACE statement* RBRACE ( 'else' LBRACE statement* RBRACE )?;
+
+whileStatement: 'while' LPAREN expression RPAREN LBRACE statement* RBRACE;
+
+forStatement: 'for' LPAREN assignmentStatement expression SEMICOLON assignmentStatement RPAREN LBRACE statement* RBRACE;
+
+printStatement: ('print' | 'println') LPAREN expression RPAREN SEMICOLON;
+
+assignmentStatement: IDENTIFIER '=' expression SEMICOLON;
+
+expression: binaryExpression
+          | unaryExpression
+          | primaryExpression
+          ;
+
+binaryExpression: expression OPERATOR expression;
+
+unaryExpression: OPERATOR expression;
+
+primaryExpression: INTEGER
+                 | STRING
+                 | IDENTIFIER
+                 | LPAREN expression RPAREN
+                 ;
