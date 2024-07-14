@@ -15,10 +15,10 @@
   - [X] Assigment Statement
   - [X] Basic Operator except xor
 - ## Working on..
-  - [ ] Function (fn {})
-  - [ ] Comment line
-  - [ ] Function parameter/Argumen
-  - [ ] Array
+  - [X] Function (fn {})
+  - [X] Comment line
+  - [X] Function parameter/Argumen
+  - [X] Array
 
 # Contributing
   ```bash
