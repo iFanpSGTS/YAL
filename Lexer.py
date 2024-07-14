@@ -26,6 +26,13 @@ class Lexer:
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
+    def comment(self):
+        result = ''
+        while self.current_char is not None and self.current_char != '\n':
+            result += self.current_char
+            self.advance()
+        return result
+
     def integer(self):
         result = ''
         while self.current_char is not None and self.current_char.isdigit():
@@ -56,80 +63,138 @@ class Lexer:
                 continue
 
             if self.current_char.isdigit():
-                return Token('INTEGER', self.integer())
+                token = Token('INTEGER', self.integer())
+                print(f"Lexer: {token}")  # Log the token
+                return token
+
+            if self.current_char == '[':
+                self.advance()
+                token = Token('LBRACKET', '[')
+                print(f"Lexer: {token}")  # Log the token
+                return token
+
+            if self.current_char == ']':
+                self.advance()
+                token = Token('RBRACKET', ']')
+                print(f"Lexer: {token}")  # Log the token
+                return token
 
             if self.current_char.isalpha():
                 identifier = self.identifier()
-                if identifier in ['if', 'while', 'for', 'print', 'println', 'else']:
-                    return Token('KEYWORD', identifier)
+                if identifier in ['if', 'while', 'for', 'print', 'println', 'else', 'fn']:
+                    token = Token('KEYWORD', identifier)
                 else:
-                    return Token('IDENTIFIER', identifier)
+                    token = Token('IDENTIFIER', identifier)
+                print(f"Lexer: {token}")  # Log the token
+                return token
 
-            if self.current_char == '"':
-                return Token('STRING', self.string())
+            if self.current_char == '"' or self.current_char == "'":
+                token = Token('STRING', self.string())
+                print(f"Lexer: {token}")  # Log the token
+                return token
 
             if self.current_char == '=':
                 self.advance()
                 if self.current_char == '=':
                     self.advance()
-                    return Token('OPERATOR', '==')
+                    token = Token('OPERATOR', '==')
                 else:
-                    return Token('OPERATOR', '=')
+                    token = Token('OPERATOR', '=')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '!':
                 self.advance()
                 if self.current_char == '=':
                     self.advance()
-                    return Token('OPERATOR', '!=')
+                    token = Token('OPERATOR', '!=')
                 else:
-                    return Token('OPERATOR', '!')
+                    token = Token('OPERATOR', '!')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '>':
                 self.advance()
                 if self.current_char == '=':
                     self.advance()
-                    return Token('OPERATOR', '>=')
+                    token = Token('OPERATOR', '>=')
                 else:
-                    return Token('OPERATOR', '>')
+                    token = Token('OPERATOR', '>')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '<':
                 self.advance()
                 if self.current_char == '=':
                     self.advance()
-                    return Token('OPERATOR', '<=')
+                    token = Token('OPERATOR', '<=')
                 else:
-                    return Token('OPERATOR', '<')
+                    token = Token('OPERATOR', '<')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '+':
                 self.advance()
-                return Token('OPERATOR', '+')
+                token = Token('OPERATOR', '+')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '-':
                 self.advance()
-                return Token('OPERATOR', '-')
+                token = Token('OPERATOR', '-')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '*':
                 self.advance()
-                return Token('OPERATOR', '*')
+                token = Token('OPERATOR', '*')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '/':
                 self.advance()
-                return Token('OPERATOR', '/')
+                token = Token('OPERATOR', '/')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '(':
                 self.advance()
-                return Token('LPAREN', '(')
+                token = Token('LPAREN', '(')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == ')':
                 self.advance()
-                return Token('RPAREN', ')')
+                token = Token('RPAREN', ')')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '{':
                 self.advance()
-                return Token('LBRACE', '{')
+                token = Token('LBRACE', '{')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == '}':
                 self.advance()
-                return Token('RBRACE', '}')
+                token = Token('RBRACE', '}')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == ';':
                 self.advance()
-                return Token('SEMICOLON', ';')
+                token = Token('SEMICOLON', ';')
+                print(f"Lexer: {token}")  # Log the token
+                return token
             elif self.current_char == ',':
                 self.advance()
-                return Token('COMMA', ',')
+                token = Token('COMMA', ',')
+                print(f"Lexer: {token}")  # Log the token
+                return token
+            elif self.current_char == '.':
+                self.advance()
+                token = Token('DOT', '.')
+                print(f"Lexer: {token}")  # Log the token
+                return token
+            elif self.current_char == "#":
+                self.advance()
+                token = Token('COMMENT', self.comment())
+                print(f"Lexer: {token}")  # Log the token
+                return token
             else:
                 self.error()
 
-        return Token('EOF', None)
+        token = Token('EOF', None)
+        print(f"Lexer: {token}")  # Log the token
+        return token
 
     def tokenize(self):
         while True:
@@ -159,12 +224,10 @@ def parse(tokens):
     return parser.parse()
 
 def main():
-    source_code = """
-    for (i = 0; i < 5; i = i + 1) {
-        println("i is " + i);
-    }
-    """
+    with open("Example.rpl", "r") as file:
+        source_code = file.read()
     tokens = tokenize(source_code)
+    
     statements = parse(tokens)
     interpreter = Interpreter(statements)
     interpreter.interpret()
