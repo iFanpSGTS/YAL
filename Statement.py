@@ -114,3 +114,26 @@ class StringLiteral(Expression):
 
     def __repr__(self):
         return self.__str__()
+
+class FunctionStatement(Statement):
+    def __init__(self, name, parameters, body):
+        self.name = name
+        self.parameters = parameters
+        self.body = body
+
+    def __str__(self):
+        return f"FunctionStatement({self.name}, {self.parameters}, {self.body})"
+
+    def __repr__(self):
+        return self.__str__()
+
+class FunctionCall(Expression):
+    def __init__(self, name, arguments):
+        self.name = name
+        self.arguments = arguments
+
+    def __str__(self):
+        return f"FunctionCall({self.name}, {self.arguments})"
+
+    def __repr__(self):
+        return self.__str__()
