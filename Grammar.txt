@@ -1,11 +1,13 @@
 // Tokens
-KEYWORD: 'if' | 'while' | 'for' | 'print' | 'println'
+KEYWORD: 'if' | 'while' | 'for' | 'print' | 'println' | 'fn'
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*
 INTEGER: [0-9]+
 STRING: '"' .*? '"'
 OPERATOR: '+' | '-' | '*' | '/' | '>' | '<' | '==' | '!=' | '>=' | '<=' | '='
 LPAREN: '('
 RPAREN: ')'
+LBRACKET: '['
+RBRACKET: ']'
 LBRACE: '{'
 RBRACE: '}'
 SEMICOLON: ';'
@@ -19,7 +21,9 @@ statement: ifStatement
          | whileStatement
          | forStatement
          | printStatement
-         | assignmentStatement
+         | functionStatement
+         | functionCallStatement
+         | arrayStatement
          ;
 
 ifStatement: 'if' LPAREN expression RPAREN LBRACE statement* RBRACE ( 'else' LBRACE statement* RBRACE )?;
@@ -30,11 +34,16 @@ forStatement: 'for' LPAREN assignmentStatement expression SEMICOLON assignmentSt
 
 printStatement: ('print' | 'println') LPAREN expression RPAREN SEMICOLON;
 
+functionStatement: 'fn' IDENTIFIER LPAREN ( IDENTIFIER ( COMMA IDENTIFIER )* )? RPAREN LBRACE statement* RBRACE;
+
+functionCallStatement: IDENTIFIER LPAREN ( expression ( COMMA expression )* )? RPAREN SEMICOLON;
+
 assignmentStatement: IDENTIFIER '=' expression SEMICOLON;
 
 expression: binaryExpression
           | unaryExpression
           | primaryExpression
+          | arrayExpression
           ;
 
 binaryExpression: expression OPERATOR expression;
@@ -46,3 +55,5 @@ primaryExpression: INTEGER
                  | IDENTIFIER
                  | LPAREN expression RPAREN
                  ;
+
+arrayExpression: LBRACKET expression ( COMMA expression )* RBRACKET;
