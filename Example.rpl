@@ -1,0 +1,59 @@
+# this is a comment
+# for now the comment line is cannot be used on the same line as the code
+
+println("Hello, World!"); 
+
+if (1 == 1) {
+    println("if hello"); 
+} else {
+    println("else hello"); 
+}
+
+a = 0;
+while (a < 2) {
+    println("while hello"); 
+    a = a + 1;
+}
+
+for (i = 0; i < 10; i = i + 1) {
+    println("for hello"); 
+}
+
+fn main() {
+    println("fn hello"); 
+}
+main(); 
+
+myArray = [1, 2, 3]; 
+println("this is array count " + myArray.count()); 
+
+
+################### This is what i've been doin so far ###################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
