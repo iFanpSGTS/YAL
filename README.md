@@ -19,6 +19,9 @@
   - [X] Comment line
   - [X] Function parameter/Argumen
   - [X] Array
+  - [ ] Increment/Decrement
+  - [ ] Try-Catch block
+  - [ ] Func return
 
 # Contributing
   ```bash
