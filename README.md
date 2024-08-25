@@ -1,6 +1,6 @@
-# RPL
-  - ## Random Programming Language
-    its basically a golang but interpret on python
+# YAL
+  - ## Yet Another Language
+    just a fookin basic programming language for education
 
 # Docs
   - ## Check on grammar.txt
